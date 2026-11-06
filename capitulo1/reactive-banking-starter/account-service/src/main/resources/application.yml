@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: account-service
+server:
+  port: ${SERVER_PORT:8081}
+course:
+  environment: local

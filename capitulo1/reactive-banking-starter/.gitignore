@@ -1,0 +1,15 @@
+# Artefactos de compilación Maven
+**/target/
+# IDEs y sistema operativo
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+.DS_Store
+Thumbs.db
+# Valores privados y secretos
+.env
+.env.*
+!.env.example

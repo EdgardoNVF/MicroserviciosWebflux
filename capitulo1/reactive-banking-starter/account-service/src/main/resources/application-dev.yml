@@ -1,0 +1,5 @@
+course:
+  environment: dev
+logging:
+  level:
+    com.bancolombia.training: DEBUG
