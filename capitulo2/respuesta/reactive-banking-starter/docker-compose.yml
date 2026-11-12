@@ -1,0 +1,16 @@
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.8.2
+    container_name: lab03-keycloak
+    command:
+      - start-dev
+      - --import-realm
+      - --hostname=http://localhost:8080
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_BOOTSTRAP_ADMIN_PASSWORD:?Define la clave en .env}
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - ./keycloak/banking-lab-realm.json:/opt/keycloak/data/import/banking-lab-realm.json:ro
+    restart: unless-stopped

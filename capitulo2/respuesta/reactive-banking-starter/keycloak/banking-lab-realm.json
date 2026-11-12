@@ -1,0 +1,156 @@
+{
+  "realm": "banking-lab",
+  "displayName": "Banca Reactiva - LAB03",
+  "enabled": true,
+  "sslRequired": "none",
+  "registrationAllowed": false,
+  "resetPasswordAllowed": false,
+  "loginWithEmailAllowed": false,
+  "duplicateEmailsAllowed": false,
+  "accessTokenLifespan": 300,
+  "ssoSessionIdleTimeout": 1800,
+  "roles": {
+    "realm": [
+      {
+        "name": "ACCOUNT_READ",
+        "description": "Consultar cuenta"
+      },
+      {
+        "name": "ACCOUNT_WRITE",
+        "description": "Crear cuenta"
+      },
+      {
+        "name": "TRANSACTION_READ",
+        "description": "Consultar movimientos"
+      },
+      {
+        "name": "TRANSACTION_WRITE",
+        "description": "Crear transaccion didactica"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "banking-postman",
+      "name": "Postman Lab03 (PKCE)",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "fullScopeAllowed": true,
+      "redirectUris": [
+        "https://oauth.pstmn.io/v1/callback",
+        "https://oauth.pstmn.io/v1/browser-callback"
+      ],
+      "webOrigins": [],
+      "attributes": {
+        "pkce.code.challenge.method": "S256"
+      },
+      "defaultClientScopes": [
+        "profile",
+        "email",
+        "roles",
+        "web-origins",
+        "acr"
+      ],
+      "protocolMappers": [
+        {
+          "name": "audience-banking-api",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.custom.audience": "banking-api",
+            "access.token.claim": "true",
+            "id.token.claim": "false",
+            "introspection.token.claim": "true"
+          }
+        }
+      ]
+    },
+    {
+      "clientId": "banking-cli-lab",
+      "name": "PowerShell CLI (solo desarrollo local - password grant)",
+      "description": "Cliente de prueba exclusivo del laboratorio, nunca usar en produccion",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "fullScopeAllowed": true,
+      "redirectUris": [],
+      "webOrigins": [],
+      "defaultClientScopes": [
+        "profile",
+        "email",
+        "roles",
+        "web-origins",
+        "acr"
+      ],
+      "protocolMappers": [
+        {
+          "name": "audience-banking-api",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.custom.audience": "banking-api",
+            "access.token.claim": "true",
+            "id.token.claim": "false",
+            "introspection.token.claim": "true"
+          }
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "username": "bank-reader",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Bank",
+      "lastName": "Reader",
+      "requiredActions": [],
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Reader#Lab03!2026",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "ACCOUNT_READ",
+        "TRANSACTION_READ"
+      ],
+      "email": "bank-reader@example.test"
+    },
+    {
+      "username": "bank-operator",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Bank",
+      "lastName": "Operator",
+      "requiredActions": [],
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Operator#Lab03!2026",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "ACCOUNT_READ",
+        "ACCOUNT_WRITE",
+        "TRANSACTION_READ",
+        "TRANSACTION_WRITE"
+      ],
+      "email": "bank-operator@example.test"
+    }
+  ],
+  "verifyEmail": false
+}

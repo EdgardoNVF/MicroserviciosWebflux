@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: transaction-service
+server:
+  port: ${SERVER_PORT:8082}
+course:
+  environment: local
+  demo-delay-enabled: false
+services:
+  account:
+    url: ${ACCOUNT_SERVICE_URL:http://localhost:8081}
+    timeout-ms: ${ACCOUNT_TIMEOUT_MS:500}
