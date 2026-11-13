@@ -29,6 +29,12 @@ public class SecurityConfig {
                 .pathMatchers(HttpMethod.GET, "/internal/status").permitAll()
                 .pathMatchers(HttpMethod.GET, "/api/accounts/{id}").hasAuthority("ROLE_ACCOUNT_READ")
                 .pathMatchers(HttpMethod.POST, "/api/accounts").hasAuthority("ROLE_ACCOUNT_WRITE")
+                .pathMatchers(HttpMethod.GET,
+                    "/actuator/health",
+                    "/actuator/health/**",
+                    "/actuator/prometheus"
+                ).permitAll()
+
                 .anyExchange().denyAll()
             )
             .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt ->
