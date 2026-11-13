@@ -1,0 +1,11 @@
+# Activar con --spring.profiles.active=lab03 (o dev,lab03 para pruebas delayMs).
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:8080/realms/banking-lab}
+          audiences:
+            - banking-api
+course:
+  environment: lab03

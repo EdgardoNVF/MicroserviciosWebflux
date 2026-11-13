@@ -33,10 +33,17 @@ public class AccountLookupClient {
     })
     .header("X-Correlation-Id",correlationId)
     .retrieve()
+    // HTTP de Account Service: conservar la distincion entre autorizacion y disponibilidad.
+    .onStatus(status -> status.value() == 401,
+        response -> Mono.error(new AccountServiceUnauthorizedException()))
+    .onStatus(status -> status.value() == 403,
+        response -> Mono.error(new AccountServiceForbiddenException()))
     .onStatus(status->status.value() == 404, response-> Mono.error(new AccountNotFoundException()))
     .bodyToMono(AccountView.class)
     .timeout(timeout)
-    .onErrorMap(error-> !(error instanceof AccountNotFoundException) 
+    .onErrorMap(error-> !(error instanceof AccountNotFoundException)
+    && !(error instanceof AccountServiceUnauthorizedException)
+    && !(error instanceof AccountServiceForbiddenException)
     && !(error instanceof AccountServiceUnavailableException),
       AccountServiceUnavailableException::new
     );
